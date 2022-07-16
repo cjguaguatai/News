@@ -1,4 +1,5 @@
 import request from '@/uilts/request'
+// import store from '@/store'
 // 登录注册
 export const login = (mobile, code) => {
   return request({
@@ -15,5 +16,12 @@ export const login = (mobile, code) => {
 export const sendCode = (mobile) => {
   return request({
     url: `/v1_0/sms/codes/${mobile}`
+  })
+}
+
+// 获取用户自己信息
+export const getUserInfo = () => {
+  return request({
+    url: '/v1_0/user'
   })
 }
