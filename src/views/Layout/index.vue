@@ -12,7 +12,10 @@
         ><i slot="icon" class="iconfont icon-wenda"></i> 问答</van-tabbar-item
       >
       <van-tabbar-item to="/profile"
-        ><i slot="icon" class="iconfont icon-wode"></i> 我的</van-tabbar-item
+        ><i slot="icon" class="iconfont icon-wode"></i>
+        <span>{{
+          $store.state.userToken.token ? '我的' : '未登录'
+        }}</span></van-tabbar-item
       >
     </van-tabbar>
   </div>

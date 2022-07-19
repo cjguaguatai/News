@@ -11,16 +11,30 @@
         <!-- 我的频道 -->
         <div class="my-channel">
           <van-cell title="我的频道">
-            <van-button size="small" round class="edit-btn">编辑</van-button>
+            <van-button
+              size="small"
+              round
+              class="edit-btn"
+              @click="isEdit = !isEdit"
+              >编辑</van-button
+            >
           </van-cell>
           <!-- 宫格 -->
           <van-grid :border="false" gutter="10px">
             <van-grid-item
               :text="item.name"
-              v-for="item in myChannels"
+              v-for="(item, index) in myChannels"
               :key="item.id"
-              ><van-icon slot="icon" name="cross"></van-icon
-            ></van-grid-item>
+              :class="{ 'active-channel': item.name === '推荐' }"
+              @click="onClickMyChannel(item, index)"
+            >
+              <van-icon
+                slot="icon"
+                name="cross"
+                v-show="isEdit && item.name !== '推荐'"
+              >
+              </van-icon>
+            </van-grid-item>
           </van-grid>
         </div>
         <!-- 推荐频道 -->
@@ -32,6 +46,7 @@
               :text="item.name"
               v-for="item in recommendChannels"
               :key="item.id"
+              @click="addMyChannel(item)"
             ></van-grid-item>
           </van-grid>
         </div>
@@ -47,8 +62,9 @@ export default {
   name: 'EditChannelPopup',
   data () {
     return {
-      isShow: true,
-      allChannels: []
+      isShow: false,
+      allChannels: [],
+      isEdit: false
     }
   },
   props: {
@@ -65,6 +81,25 @@ export default {
       const { data } = await getAllChannels()
       console.dir(data)
       this.allChannels = data.data.channels
+    },
+    // 删除我的频道、切换频道
+    onClickMyChannel (channel, index) {
+      if (this.isEdit && channel.name !== '推荐') {
+        return this.$emit('del-myChannel', channel.id)
+      }
+      if (!this.isEdit) {
+        // console.log(111)
+        this.isShow = false
+        this.$emit('change-active', index)
+      }
+    },
+    // 添加频道
+    addMyChannel (add) {
+      if (this.isEdit) {
+        this.$emit('add-myChannel', { ...add })
+      }
+      // console.log({ ...add })
+      // console.log(add)
     }
   },
   computed: {
@@ -78,6 +113,11 @@ export default {
 </script>
 
 <style scoped lang="less">
+.active-channel {
+  /deep/.van-grid-item__text {
+    color: red;
+  }
+}
 .popupMain {
   padding-top: 100px;
   .edit-btn {

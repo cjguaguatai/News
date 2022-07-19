@@ -14,12 +14,25 @@
       <span class="iconfont icon-gengduo" @click="showPopup"></span>
     </van-tabs>
     <!-- 弹框 -->
-    <EditChannelPopup ref="popup" :myChannels="myChannels"></EditChannelPopup>
+    <EditChannelPopup
+      ref="popup"
+      :myChannels="myChannels"
+      @del-myChannel="delMyChannel"
+      @change-active="changeActive"
+      @add-myChannel="addMyChannel"
+    ></EditChannelPopup>
   </div>
 </template>
 
 <script>
-import { getMyChannels } from '@/api/channel'
+import {
+  getMyChannels,
+  getMyChannelsByLocal,
+  setMyChannelsByLocal,
+  delMyChannel,
+  addMyChannel
+} from '@/api/channel'
+
 import ArticleList from './component/ArticleList.vue'
 import EditChannelPopup from '@/views/Home/component/EditChannelPopup.vue'
 export default {
@@ -37,16 +50,71 @@ export default {
   created () {
     this.getMyChannels()
   },
+  computed: {
+    login () {
+      return !!this.$store.state.userToken.token
+    }
+  },
   methods: {
     async getMyChannels () {
       try {
-        const { data } = await getMyChannels()
-        // console.log(data)
-        this.myChannels = data.data.channels
+        if (!this.login) {
+          // 离线状态
+          const myChannels = getMyChannelsByLocal()
+          // 本地有数据
+          if (myChannels) {
+            this.myChannels = myChannels
+          } else {
+            // 本地有数据
+            const { data } = await getMyChannels()
+            this.myChannels = data.data.channels
+          }
+        } else {
+          // 登录状态
+          // 带请求头的
+          const { data } = await getMyChannels()
+          this.myChannels = data.data.channels
+        }
       } catch (error) {}
     },
     showPopup () {
       this.$refs.popup.isShow = true
+    },
+    // 删除频道
+    async delMyChannel (id) {
+      this.myChannels = this.myChannels.filter((item) => item.id !== id)
+      if (!this.login) {
+        // 离线状态
+        // 数据存储在本地
+        setMyChannelsByLocal(this.myChannels)
+      } else {
+        // 登录状态
+        try {
+          await delMyChannel(id)
+        } catch (error) {
+          return this.$toast.fail('删除用户频道失败')
+        }
+      }
+      this.$toast.success('删除用户频道成功')
+    },
+    changeActive (id) {
+      this.active = id
+    },
+    // 添加频道
+    async addMyChannel (add) {
+      this.myChannels.push(add)
+      if (!this.login) {
+        setMyChannelsByLocal(this.myChannels)
+      } else {
+        // 登录状态
+        // 发送接口，添加频道
+        try {
+          await addMyChannel(add.id, this.myChannels.length)
+        } catch (error) {
+          return this.$toast.fail('添加频道失败')
+        }
+      }
+      this.$toast.success('添加频道成功')
     }
   }
 }
