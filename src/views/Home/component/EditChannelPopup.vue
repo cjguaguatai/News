@@ -16,7 +16,7 @@
               round
               class="edit-btn"
               @click="isEdit = !isEdit"
-              >编辑</van-button
+              >{{ isEdit ? '完成' : '编辑' }}</van-button
             >
           </van-cell>
           <!-- 宫格 -->
@@ -79,7 +79,7 @@ export default {
   methods: {
     async getAllChannels () {
       const { data } = await getAllChannels()
-      console.dir(data)
+      // console.dir(data)
       this.allChannels = data.data.channels
     },
     // 删除我的频道、切换频道

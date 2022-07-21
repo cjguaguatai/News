@@ -29,6 +29,20 @@ const routes = [
         component: () => import('@/views/My')
       }
     ]
+  },
+  {
+    path: '/search',
+    component: () => import('@/views/Search')
+  },
+  {
+    path: '/detail',
+    component: () => import('@/views/Detail'),
+    children: [
+      {
+        path: ' /:id',
+        component: () => import('@/views/Detail/components/detailRoot')
+      }
+    ]
   }
 ]
 

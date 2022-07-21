@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* border方法 三角形 transparent*/
+        .box {
+            width: 0;
+            height: 0;
+            border-top: 100px solid orangered;
+            border-bottom: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-left: 100px solid transparent;
+        }
+
+        /* border方法 等边三角形*/
+        .box1 {
+            width: 0;
+            height: 0;
+            /* border-top: 69px solid orangered; */
+            border-left: 69px solid transparent;
+            border-right: 69px solid transparent;
+            border-bottom: 120px solid skyblue;
+        }
+
+        .box2 {
+            width: 80px;
+            height: 100px;
+            background-color: skyblue;
+            /* 三个点的坐标 顺时针 */
+            /* clip-path: polygon(0 0, 0% 100%, 100% 50%); */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div><br>
+    <div class="box1"></div><br>
+    <div class="box2"></div><br>
+</body>
+<script>
+</script>
+
+</html>
