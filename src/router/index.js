@@ -44,6 +44,10 @@ const routes = [
         name: 'detailRoot'
       }
     ]
+  },
+  {
+    path: '/user',
+    component: () => import('@/views/User')
   }
 ]
 

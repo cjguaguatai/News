@@ -17,7 +17,7 @@
               <span class="mobile">{{ info.name }}</span>
             </van-row>
           </van-col>
-          <van-col span="11">
+          <van-col span="11" @click="$router.push('/user')">
             <van-row class="code-row" type="flex" align="center" justify="end">
               <van-button class="code-btn" size="mini" round
                 >编辑资料</van-button

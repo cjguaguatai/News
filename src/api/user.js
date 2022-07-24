@@ -39,10 +39,43 @@ export const getFollowings = (target) => {
     }
   })
 }
-
+/**
+ * 取消关注
+ * @param {string} target
+ * @returns
+ */
 export const cancelFollowings = (target) => {
   return request({
     url: `/v1_0/user/followings/${target}`,
     method: 'DELETE'
+  })
+}
+/**
+ * 获取用户个人资料
+ * @returns
+ */
+export const getUserProfile = () => {
+  return request({
+    url: '/v1_0/user/profile'
+  })
+}
+/**
+ *编辑用户个人资料
+ * @param {string} name
+ * @param {string} gender
+ * @param {string} birthday
+ * @param {string} intro
+ * @returns
+ */
+export const editProfile = (name, gender, birthday, intro) => {
+  return request({
+    url: '/v1_0/user/profile',
+    method: 'PATCH',
+    data: {
+      name,
+      gender,
+      birthday,
+      intro
+    }
   })
 }
