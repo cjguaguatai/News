@@ -28,8 +28,8 @@
       <template #label>
         <div>
           <van-image
-            v-for="item in articleInfo.cover.images"
-            :key="item"
+            v-for="(item, index) in articleInfo.cover.images"
+            :key="index"
             width="3rem"
             height="2rem"
             :src="item"
@@ -59,7 +59,13 @@ export default {
   },
   methods: {
     toDetail (id) {
-      this.$router.push(`/detail/${id}`)
+      // `/detail/${id}`
+      this.$router.push({
+        name: 'detailRoot',
+        params: {
+          id
+        }
+      })
     }
   }
 }

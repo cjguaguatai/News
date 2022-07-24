@@ -8,6 +8,7 @@
         @search="onSearch"
         @cancel="onCancel"
         @focus="visibleSearchSuggestion"
+        class="search"
       />
     </form>
     <component
@@ -38,7 +39,9 @@ export default {
       searchResultList: [],
       list: JSON.parse(localStorage.getItem('historyList')) || [],
       // 传到结果组件
-      show: ''
+      show: '',
+      // 后端搜索结果页数
+      page: 1
     }
   },
   methods: {
@@ -62,9 +65,9 @@ export default {
       this.getSearch()
     },
     // 根据关键词获取搜索结果
-    async getSearch () {
+    async getSearch (page) {
       try {
-        const { data } = await getSearch(this.value)
+        const { data } = await getSearch(page, 10, this.value)
         // console.log(data.data.results)
         // if (data.data.results.length === 0) {
         //   return (this.searchResultList = ['暂无数据'])
@@ -87,6 +90,18 @@ export default {
       this.list = Array.from(new Set(this.list))
       // console.log(111)
       localStorage.setItem('historyList', JSON.stringify(this.list))
+    },
+    // SearchResult组件onload事件触发后，修改page，发请求
+    async onLoad () {
+      console.log(111)
+      this.page++
+      try {
+        const { data } = await getSearch(this.page, 10, this.value)
+        this.searchResultList = [...this.searchResultList, ...data.data.results]
+        // this.$store.commit('setSearchResultList', data.data.results)
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
   components: {
@@ -108,4 +123,11 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="less" scoped>
+.search {
+  background: rgb(50, 150, 250);
+  .van-search__action {
+    color: #fff;
+  }
+}
+</style>

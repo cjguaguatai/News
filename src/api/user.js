@@ -25,3 +25,24 @@ export const getUserInfo = () => {
     url: '/v1_0/user'
   })
 }
+/**
+ * 关注用户
+ * @param {String} target
+ * @returns
+ */
+export const getFollowings = (target) => {
+  return request({
+    url: '/v1_0/user/followings',
+    method: 'post',
+    data: {
+      target
+    }
+  })
+}
+
+export const cancelFollowings = (target) => {
+  return request({
+    url: `/v1_0/user/followings/${target}`,
+    method: 'DELETE'
+  })
+}

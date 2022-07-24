@@ -37,7 +37,6 @@ export default {
       }
       // console.log(this.keywords)
     }
-    // keywords: 'getSearchResult'
   },
   methods: {
     // 获取联想建议

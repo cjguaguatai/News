@@ -40,7 +40,8 @@ const routes = [
     children: [
       {
         path: ' /:id',
-        component: () => import('@/views/Detail/components/detailRoot')
+        component: () => import('@/views/Detail/components/detailRoot'),
+        name: 'detailRoot'
       }
     ]
   }

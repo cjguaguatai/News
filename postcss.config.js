@@ -5,7 +5,9 @@ module.exports = {
       // rootValue ({ file }) {
       //   return file.indexOf('vant') !== -1 ? 37.5 : 75
       // },
-      rootValue: (module) => (/vant/gi.test(module.file) ? 37.5 : 75),
+      rootValue: (module) => {
+        return (/vant/gi.test(module.file) ? 37.5 : 75)
+      },
       propList: ['*']
     }
   }

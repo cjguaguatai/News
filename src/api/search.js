@@ -12,10 +12,12 @@ export const getSearchResult = (keyword) =>
     }
   })
 
-export const getSearch = (q) => {
+export const getSearch = (page, perPage, q) => {
   return request({
     url: '/v1_0/search',
     params: {
+      page,
+      per_page: perPage,
       q
     }
   })

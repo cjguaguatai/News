@@ -24,3 +24,63 @@ export const getHistories = () => {
     url: '/v1_0/user/histories'
   })
 }
+/**
+ * 根据文章id获取详情
+ * @param {Number} id
+ * @returns
+ */
+export const newsDetail = (id) => {
+  return request({
+    url: `/v1_0/articles/${id}`
+  })
+}
+/**
+ * 对文章点赞
+ * @param {Number} target
+ * @returns
+ */
+export const goodArticle = (target) => {
+  return request({
+    url: '/v1_0/article/likings',
+    method: 'post',
+    data: {
+      target
+    }
+  })
+}
+/**
+ * 取消文章点赞
+ * @param {Number} target
+ * @returns
+ */
+export const cancelGoodArticle = (target) => {
+  return request({
+    url: `/v1_0/article/likings/${target}`,
+    method: 'DELETE'
+  })
+}
+/**
+ * 收藏文章
+ * @param {Number} target
+ * @returns
+ */
+export const collectArticles = (target) =>
+  request({
+    url: '/v1_0/article/collections',
+    method: 'post',
+    data: {
+      target
+    }
+  })
+
+/**
+ * 取消收藏
+ * @param {Number} target
+ * @returns
+ */
+export const cancelCollect = (target) => {
+  return request({
+    url: `/v1_0/article/collections/${target}`,
+    method: 'DELETE'
+  })
+}

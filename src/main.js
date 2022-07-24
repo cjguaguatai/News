@@ -7,6 +7,7 @@ import 'lib-flexible'
 import '@/style/index.less'
 import Vant from 'vant'
 import 'vant/lib/index.css'
+import '@/style/news.css'
 
 Vue.use(Vant)
 Vue.config.productionTip = false

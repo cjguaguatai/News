@@ -8,7 +8,11 @@ export default new Vuex.Store({
   state: {
     userToken: getToken() || {},
     // 根据联想词搜索结果列表
-    searchResultList: []
+    searchResultList: [],
+    // 评论回复框显示与否
+    isShow: false,
+    // 评论的评论
+    popList: {}
   },
   getters: {},
   mutations: {
@@ -18,6 +22,12 @@ export default new Vuex.Store({
     },
     setSearchResultList (state, data) {
       state.searchResultList = data
+    },
+    setIsShow (state, data) {
+      state.isShow = data
+    },
+    setPopList (state, data) {
+      state.popList = data
     }
   },
   actions: {},

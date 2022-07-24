@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "22971815",
+      "name": "倒彩",
+      "font_class": "daocai",
+      "unicode": "e898",
+      "unicode_decimal": 59544
+    },
+    {
       "icon_id": "30531269",
       "name": "点赞",
       "font_class": "dianzan",

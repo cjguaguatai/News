@@ -1,11 +1,18 @@
 <template>
-  <div>
-    <router-view></router-view>
+  <div class="box">
+    <router-view class="main"></router-view>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {}
+}
 </script>
 
-<style></style>
+<style scoped lang="less">
+.box {
+  padding-top: 92px;
+  padding-bottom: 80px;
+}
+</style>
